@@ -1,0 +1,31 @@
+{% extends "myBase.html" %}
+
+{% block title %}{{ user.username }}-知乎{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
+    <div class="profile-header">
+    <h1>{{ user.username }}</h1>
+    {% if user.name or user.location %}
+    <P>
+        {% if user.name %}{{ user.name }}{% endif %}
+        {% if user.location %}
+            Form <a href="http://maps.google.com/?q={{ user.location }}">
+                {{ user.location }}
+    </a>
+        {% endif %}
+    </P>
+    {% endif %}
+    {% if user.about_me %}
+    <p>{{ user.about_me }}</p>{% endif %}
+    <p>
+        {% if user == current_user %}
+        <a class="btn btn-default" href="{{url_for('.edit_profile') }}">
+            Edit Profile
+        </a>
+        {% endif %}
+    </p>
+    </div>
+</div>
+{% endblock %}
